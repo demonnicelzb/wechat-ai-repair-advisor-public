@@ -211,7 +211,7 @@ def read_dotenv(path):
 
 
 def _key_from_windows_registry():
-    """从用户环境变量（注册表 HKCU\Environment）兜底读 key。
+    """从用户环境变量（注册表 HKCU\\Environment）兜底读 key。
 
     刚用 setx / SetEnvironmentVariable 设完环境变量时，已经打开的终端进程
     不会更新自己的环境块，这里补一条注册表兜底，避免"明明设了却说没 key"。

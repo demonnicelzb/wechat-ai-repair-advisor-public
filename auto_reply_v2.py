@@ -210,7 +210,23 @@ def read_dotenv(path):
     return result
 
 
+def _key_from_windows_registry():
+    """从用户环境变量（注册表 HKCU\Environment）兜底读 key。
+
+    刚用 setx / SetEnvironmentVariable 设完环境变量时，已经打开的终端进程
+    不会更新自己的环境块，这里补一条注册表兜底，避免"明明设了却说没 key"。
+    """
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as reg_key:
+            value, _ = winreg.QueryValueEx(reg_key, "DEEPSEEK_API_KEY")
+        return str(value or "").strip()
+    except Exception:
+        return ""
+
+
 def load_config(path=CONFIG_PATH):
+
     cfg = dict(DEFAULT_CONFIG)
     user_cfg = {}
     if os.path.exists(path):
@@ -226,7 +242,13 @@ def load_config(path=CONFIG_PATH):
             cfg[key] = user_cfg[key]
     # api_key 优先顺序：环境变量 > config.json > .env
     env_file = read_dotenv(ENV_PATH)
-    key = os.environ.get("DEEPSEEK_API_KEY") or cfg.get("api_key") or env_file.get("DEEPSEEK_API_KEY") or ""
+    key = (
+        os.environ.get("DEEPSEEK_API_KEY")
+        or cfg.get("api_key")
+        or env_file.get("DEEPSEEK_API_KEY")
+        or _key_from_windows_registry()
+        or ""
+    )
     cfg["api_key"] = str(key).strip()
     # 规整类型，避免手写 json 写错导致运行时报错
     cfg["targets"] = [str(t).strip() for t in (cfg.get("targets") or []) if str(t).strip()]

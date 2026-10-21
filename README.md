@@ -81,7 +81,18 @@ python 对话预演.py
 DEEPSEEK_API_KEY=sk-xxxxxxxx
 ```
 
-优先级：环境变量 `DEEPSEEK_API_KEY` > `config.json` 的 `api_key` > `.env`。
+优先级：环境变量 `DEEPSEEK_API_KEY` > `config.json` 的 `api_key` > `.env`
+> Windows 下若前两者都没有，还会兜底读**用户环境变量**（`HKCU\Environment`），
+> 所以用 `setx DEEPSEEK_API_KEY sk-xxx` 设过 key 之后，即便当前终端是老窗口也能识别。
+
+**不想把 key 写在项目文件里**（推荐），可以设成用户环境变量：
+
+```powershell
+[Environment]::SetEnvironmentVariable('DEEPSEEK_API_KEY','sk-xxxxxxxx','User')
+```
+
+> 注意：环境变量优先级最高。改了 key 记得一并更新，否则 `.env` 里的新 key 会被旧的盖掉；
+> 想清掉环境变量里的：`[Environment]::SetEnvironmentVariable('DEEPSEEK_API_KEY',$null,'User')`
 
 ### 2. 回复对象
 

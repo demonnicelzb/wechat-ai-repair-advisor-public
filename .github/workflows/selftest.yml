@@ -1,0 +1,17 @@
+name: selftest
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # 自测完全离线：不连微信、不调 API、不需要第三方依赖
+      - name: Run offline selftest
+        run: python auto_reply_v2.py --selftest

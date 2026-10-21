@@ -1,0 +1,30 @@
+# 密钥与本地数据
+.env
+.env.local
+config.local.json
+
+# 运行期状态与日志（含聊天内容，绝不提交）
+state.json
+state_dryrun.json
+logs/
+wechatauto_logs/
+PAUSE
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 第三方大文件（请自行安装，不入库）
+*.whl
+*.exe
+*.msi
+CMake/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+.DS_Store

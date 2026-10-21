@@ -1,0 +1,22 @@
+{
+  "_readme": "改完保存即可，不用改代码。api_key 优先顺序：环境变量 DEEPSEEK_API_KEY > 这里的 api_key > 同目录 .env 文件。",
+  "api_key": "",
+  "base_url": "https://api.deepseek.com/v1/",
+  "model": "deepseek-chat",
+  "targets": ["客户A"],
+  "poll_interval": 1.0,
+  "debounce_seconds": 1.5,
+  "history_limit": 30,
+  "history_char_budget": 5000,
+  "history_scope": "session",
+  "max_reply_chars": 60,
+  "max_chunks": 3,
+  "multi_bubble": true,
+  "bubble_interval": 1.2,
+  "temperature": 0.6,
+  "max_tokens": 300,
+  "handoff_keywords": ["转人工", "转接人工", "找老板", "人工客服", "我要投诉"],
+  "pause_minutes": 30,
+  "persona_extra": "",
+  "dry_run": false
+}

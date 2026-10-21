@@ -1,0 +1,4 @@
+# 微信读写依赖（Windows 专用）
+wechatauto-replica>=1.2.1
+# LLM 客户端（兼容 OpenAI 协议，默认接 DeepSeek）
+openai>=1.30.0
